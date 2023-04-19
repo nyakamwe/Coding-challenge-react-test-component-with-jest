@@ -10,8 +10,10 @@ function CustomerList() {
   }
 
   const handleSubmit =()=>{
-    setName((prev)=> [...prev, inputValue])
-    setInputValue('')
+    if(inputValue.trim().length){
+      setName((prev)=> [...prev, inputValue])
+      setInputValue('')
+    }
   }
 
   return (
@@ -21,12 +23,13 @@ function CustomerList() {
         <button type="submit"  className="ml-30" data-testid="submit-button" onClick={handleSubmit}>Add Customer</button>
       </section>
 
-      <ul className="styled mt-50" data-testid="customer-list">
-        
-        {names.map((name, index)=>{
-          <li className="slide-up-fade-in" data-testid="list-item1" key="list-item1" >{name}</li>
-        })}
-          </ul>
+      {names.length > 0 && 
+        <ul className="styled mt-50" data-testid="customer-list">
+          {names.map((name, index)=>{
+            return <li className="slide-up-fade-in" data-testid={'list-item' + index} key={index} >{name}</li>
+          })}
+        </ul>
+      }
     </div>
   );
 }
