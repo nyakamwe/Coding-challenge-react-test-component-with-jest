@@ -3,16 +3,22 @@ import "./index.css";
 
 function CustomerList() {
   const [names, setName]= useState([])
+  const [inputValue, setInputValue]= useState('')
 
-  const handleInput =(nameVal)=>{
-    setName((prev)=> {[...prev, nameVal]})
+  const handleInputCange =(event)=>{
+    setInputValue(event.target.value)
+  }
+
+  const handleSubmit =()=>{
+    setName((prev)=> [...prev, inputValue])
+    setInputValue('')
   }
 
   return (
     <div className="mt-75 layout-column justify-content-center align-items-center">
       <section className="layout-row align-items-center justify-content-center">
-        <input type="text" className="large" placeholder="Name" data-testid="app-input"/>
-        <button type="submit" className="ml-30" data-testid="submit-button" onClick={handleInput()}>Add Customer</button>
+        <input type="text" className="large" placeholder="Name" data-testid="app-input" value={inputValue} onChange={handleInputCange}/>
+        <button type="submit"  className="ml-30" data-testid="submit-button" onClick={handleSubmit}>Add Customer</button>
       </section>
 
       <ul className="styled mt-50" data-testid="customer-list">
