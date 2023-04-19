@@ -1,17 +1,26 @@
-import React  from "react";
+import React, {useState} from "react";
 import "./index.css";
 
 function CustomerList() {
+  const [names, setName]= useState([])
+
+  const handleInput =(nameVal)=>{
+    setName((prev)=> {[...prev, nameVal]})
+  }
+
   return (
     <div className="mt-75 layout-column justify-content-center align-items-center">
       <section className="layout-row align-items-center justify-content-center">
         <input type="text" className="large" placeholder="Name" data-testid="app-input"/>
-        <button type="submit" className="ml-30" data-testid="submit-button">Add Customer</button>
+        <button type="submit" className="ml-30" data-testid="submit-button" onClick={handleInput()}>Add Customer</button>
       </section>
 
       <ul className="styled mt-50" data-testid="customer-list">
-          <li className="slide-up-fade-in" data-testid="list-item1" key="list-item1" >Customer</li>
-      </ul>
+        
+        {names.map((name, index)=>{
+          <li className="slide-up-fade-in" data-testid="list-item1" key="list-item1" >{name}</li>
+        })}
+          </ul>
     </div>
   );
 }
